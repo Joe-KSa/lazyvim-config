@@ -8,9 +8,6 @@ vim.keymap.set("i", "<C-b>", "<C-o>de")
 -- Map Ctrl+c to escape from other modes
 vim.keymap.set({ "i", "n", "v" }, "<C-c>", [[<C-\><C-n>]])
 
------ OIL -----
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
 -- Delete all buffers but the current one
 vim.keymap.set(
   "n",
@@ -20,18 +17,16 @@ vim.keymap.set(
 )
 
 -- Disable key mappings in insert mode
-vim.api.nvim_set_keymap("i", "<A-j>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<A-k>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("i", "<A-j>")
+vim.keymap.del("i", "<A-k>")
 
 -- Disable key mappings in normal mode
-vim.api.nvim_set_keymap("n", "<A-j>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<A-k>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("n", "<A-j>")
+vim.keymap.del("n", "<A-k>")
 
 -- Disable key mappings in visual block mode
-vim.api.nvim_set_keymap("x", "<A-j>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("x", "<A-k>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("x", "J", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("x", "K", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("v", "<A-j>")
+vim.keymap.del("v", "<A-k>")
 
 -- Redefine Ctrl+s to save with the custom function
 vim.api.nvim_set_keymap("n", "<C-s>", ":lua SaveFile()<CR>", { noremap = true, silent = true })
@@ -138,13 +133,8 @@ function SaveFile()
 end
 
 -- Custom keymaps
-vim.keymap.set("n", "<leader>ft", "<nop>", { silent = true })
-vim.keymap.set("n", "<leader>fT", "<nop>", { silent = true })
-vim.keymap.set("n", "<leader>K", "<nop>", { silent = true })
-vim.keymap.set("n", "K", "<nop>", { silent = true })
-vim.keymap.set("n", "C", "<nop>", { silent = true })
-
-vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "Show info" })
+vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>fT")
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })

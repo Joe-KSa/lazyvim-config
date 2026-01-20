@@ -19,7 +19,7 @@ return {
     version = false, -- set this if you want to always pull the latest change
     opts = {
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      provider = "copilot", -- Recommend using Claude
+      provider = "openai", -- Recommend using Claude
       providers = {
         copilot = {
           endpoint = "https://api.githubcopilot.com",
@@ -31,6 +31,18 @@ return {
             max_tokens = 4096,
           },
           model = "gpt-4o", -- Tu modelo preferido
+        },
+        gemini = {
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+          model = "gemini-2.5-flash",
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 4096,
+        },
+        openai = {
+          endpoint = "https://openrouter.ai/api/v1",
+          model = "deepseek/deepseek-v3.2",
+          api_key_name = "OPENROUTER_API_KEY", -- Add your API key here
         },
       },
       auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
@@ -128,6 +140,7 @@ return {
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
+        enabled = false,
         event = "VeryLazy",
         opts = {
           -- recommended settings

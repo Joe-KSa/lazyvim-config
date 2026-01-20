@@ -3,8 +3,15 @@ return {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
     opts = {
+      keys = {
+        { "K", false },
+      },
       inlay_hints = { enabled = false },
+
       servers = {
+        html = {
+          filetypes = { "html", "templ", "htmlangular" },
+        },
         tsserver = {
           settings = {
             typescript = {
