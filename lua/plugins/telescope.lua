@@ -1,9 +1,14 @@
 return {
   "nvim-telescope/telescope.nvim",
   tag = "v0.2.0",
-  dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
+  },
 
   config = function()
+    local telescope = require("telescope")
     local Layout = require("nui.layout")
     local Popup = require("nui.popup")
     local TSLayout = require("telescope.pickers.layout")
@@ -213,5 +218,6 @@ return {
         end,
       },
     })
+    telescope.load_extension("live_grep_args")
   end,
 }

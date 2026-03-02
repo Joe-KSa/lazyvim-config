@@ -3,8 +3,15 @@ return {
     "NvChad/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup({
-        user_default_options = {
-          tailwind = true,
+        options = {
+          parsers = {
+            css = true,
+            tailwind = { enable = true },
+          },
+          display = {
+            mode = "virtualtext",
+            virtualtext = { position = "after" },
+          },
         },
       })
     end,

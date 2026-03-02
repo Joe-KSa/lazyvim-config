@@ -98,6 +98,7 @@ return {
       options = {
         theme = "gentleman-kanagawa-blur", -- Set the theme for lualine
         icons_enabled = true, -- Enable icons in the statusline
+        section_separators = { left = "░▒▓", right = "▓▒░" },
       },
       sections = {
         lualine_a = {
