@@ -3,12 +3,20 @@ return {
   config = function()
     local toggleterm = require("toggleterm")
 
+    local is_linux = vim.loop.os_uname().sysname == "Linux"
+
+    local default_shell = nil
+
+    if not is_linux then
+      default_shell = "pwsh.exe -NoLogo -NoExit --ExecutionPolicy Bypass"
+    end
+
     toggleterm.setup({
       open_mapping = [[<c-]>]], -- Terminal principal (ID 1)
       hide_number = true,
       start_in_insert = true,
       direction = "horizontal",
-      shell = "pwsh.exe -NoLogo -NoExit --ExecutionPolicy Bypass",
+      shell = default_shell,
       float_opts = {
         border = "curved",
         winblend = 0,
