@@ -6,7 +6,14 @@ return {
     "MunifTanjim/nui.nvim",
     { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
   },
-
+  cmd = "Telescope",
+  keys = {
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope find files" },
+    { "<leader>fg", "<cmd>Telescope live_grep_args<cr>", desc = "Telescope live grep (args)" },
+    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Telescope buffers" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Telescope help tags" },
+    { "<leader>fk", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Telescope symbols" },
+  },
   config = function()
     local telescope = require("telescope")
     local Layout = require("nui.layout")

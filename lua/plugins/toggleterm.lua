@@ -1,10 +1,20 @@
 return {
   "akinsho/toggleterm.nvim",
+  version = "*",
+  lazy = true,
+  -- ⚡ Solo se despierta si usas el comando manual o tus atajos de teclado
+  cmd = { "ToggleTerm", "ToggleTermToggleAll" },
+  keys = {
+    -- El mapeo principal open_mapping se puede manejar de forma nativa por Lazy aquí
+    { "<c-]>", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal Principal (ID 1)", mode = { "n", "i", "t" } },
+    { "<leader>t2", "<cmd>2ToggleTerm direction=horizontal<cr>", desc = "Toggle Segunda Terminal", mode = "n" },
+  },
   config = function()
     local toggleterm = require("toggleterm")
 
-    local is_linux = vim.loop.os_uname().sysname == "Linux"
-
+    -- Detectar OS usando la API de Neovim moderna (vim.uv reemplaza a vim.loop)
+    local uv = vim.uv or vim.loop
+    local is_linux = uv.os_uname().sysname == "Linux"
     local default_shell = nil
 
     if not is_linux then
@@ -12,7 +22,7 @@ return {
     end
 
     toggleterm.setup({
-      open_mapping = [[<c-]>]], -- Terminal principal (ID 1)
+      -- Ya no necesitas open_mapping aquí adentro porque lo maneja el 'keys' de Lazy de arriba
       hide_number = true,
       start_in_insert = true,
       direction = "horizontal",
@@ -34,39 +44,21 @@ return {
       },
     })
 
-    -- Lógica para Terminales Personalizadas
-    local Terminal = require("toggleterm.terminal").Terminal
+    -- 🛠️ Navegación interna de la terminal mejorada (Lua nativo)
+    local term_maps_group = vim.api.nvim_create_augroup("ToggleTermNavigation", { clear = true })
 
-    -- Función auxiliar para crear terminales rápidamente
-    local function create_custom_term(opts)
-      return Terminal:new({
-        cmd = opts.cmd or "pwsh.exe -NoLogo -NoExit --ExecutionPolicy Bypass",
-        direction = opts.direction or "horizontal",
-        hidden = true,
-      })
-    end
-
-    -- Definición de terminales
-    local term2 = create_custom_term({ direction = "horizontal" })
-
-    -- Mapeos usando la API moderna de Neovim
-    -- Terminal 2
-    vim.keymap.set("n", "<leader>t2", function()
-      term2:toggle()
-    end, { desc = "Toggle Segunda Terminal" })
-
-    -- Mejorar la navegación dentro de las terminales
-    function _G.set_terminal_keymaps()
-      local opts = { buffer = 0 }
-      vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-      vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-      vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-      vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-      vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-      vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-    end
-
-    -- Aplicar mapeos solo cuando se abra una terminal
-    vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+    vim.api.nvim_create_autocmd("TermOpen", {
+      pattern = "term://*toggleterm#*",
+      group = term_maps_group,
+      callback = function()
+        local opts = { buffer = 0 }
+        vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+        vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+        vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+        vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+        vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+        vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+      end,
+    })
   end,
 }

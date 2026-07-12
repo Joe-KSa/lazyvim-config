@@ -1,5 +1,8 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.lang.ember",
+    "lazyvim.plugins.extras.lang.php",
+    "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.ui.alpha"
   ],
   "install_version": 8,

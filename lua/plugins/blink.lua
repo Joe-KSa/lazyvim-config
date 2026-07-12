@@ -1,6 +1,7 @@
 return {
   "saghen/blink.cmp",
   lazy = true,
+  event = "InsertEnter",
   dependencies = { "saghen/blink.compat" },
   opts = {
     keymap = {

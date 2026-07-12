@@ -135,11 +135,3 @@ end
 -- Custom keymaps
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
-
-local builtin = require("telescope.builtin")
-local lga = require("telescope").extensions.live_grep_args
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>fg", lga.live_grep_args, { desc = "Telescope live grep (args)" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-vim.keymap.set("n", "<leader>fk", builtin.lsp_document_symbols, { desc = "Telescope symbols" })

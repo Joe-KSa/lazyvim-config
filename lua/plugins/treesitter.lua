@@ -9,6 +9,7 @@ return {
         "tsx",
         "typescript",
       })
+      return opts
     end,
   },
 }
