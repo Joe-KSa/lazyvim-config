@@ -8,4 +8,12 @@ return {
     "akinsho/bufferline.nvim",
     enabled = false, -- Disable this plugin
   },
+  {
+    "folke/snacks.nvim",
+    keys = {
+      { "<leader>ff", false },
+      { "<leader>fg", false },
+      { "<leader>fb", false },
+    },
+  },
 }
