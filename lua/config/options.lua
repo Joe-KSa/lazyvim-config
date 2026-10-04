@@ -5,3 +5,4 @@
 -- Active wrap
 vim.opt.wrap = true
 vim.opt.linebreak = true
+vim.o.exrc = true

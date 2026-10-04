@@ -3,19 +3,21 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
-        php = { "pint" },
+        php = { "pint", "html-beautify" },
         blade = { "blade-formatter", lsp_format = "never" },
       },
       formatters = {
         pint = {
           command = "vendor/bin/pint",
         },
-        ["blade-formatter"] = {
-          prepend_args = {
-            "--wrap-attributes=force-expand-multiline",
-            "--wrap-line-length=120",
-          },
+        ["html-beautify"] = {
+          command = "html-beautify",
+          args = { "--indent-size", "2", "--file", "-", "--templating", "php" },
         },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
       },
     },
   },

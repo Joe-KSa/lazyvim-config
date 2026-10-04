@@ -28,7 +28,7 @@ return {
         },
         openai = {
           endpoint = "https://openrouter.ai/api/v1",
-          model = "deepseek/deepseek-v3.2",
+          model = "qwen/qwen3.8-27b:free",
           api_key_name = "OPENROUTER_API_KEY", -- Add your API key here
         },
       },
@@ -106,13 +106,17 @@ return {
         override_timeoutlen = 500,
       },
     },
-    build = "make",
+    build = vim.fn.has("win32") == 1
+      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "make",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
+      "ColinKennedy/mega.cmdparse",
+      "ColinKennedy/mega.logging",
 
       -- Copilot configurado correctamente como dependencia directa
       {
