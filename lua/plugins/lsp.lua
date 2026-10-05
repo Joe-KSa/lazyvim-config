@@ -1,3 +1,5 @@
+local is_win = vim.fn.has("win32") == 1
+
 return {
   {
     "stevearc/conform.nvim",
@@ -8,7 +10,7 @@ return {
       },
       formatters = {
         pint = {
-          command = "vendor/bin/pint",
+          command = vim.fn.has("win32") == 1 and "vendor\\bin\\pint.bat" or "vendor/bin/pint",
         },
         ["html-beautify"] = {
           command = "html-beautify",
@@ -30,6 +32,14 @@ return {
       inlay_hints = { enabled = false },
       servers = {
         phpactor = false,
+        laravel_ls = {
+          root_dir = function(bufnr, on_dir)
+            local root = vim.fs.root(bufnr, { "artisan" })
+            if root then
+              on_dir(root)
+            end
+          end,
+        },
         intelephense = {
           enabled = true,
           filetypes = { "php", "blade" },
@@ -64,7 +74,7 @@ return {
             },
           },
         },
-        nil_ls = {
+        nil_ls = is_win and false or {
           mason = false,
           cmd = { "nil" },
           autostart = true,
