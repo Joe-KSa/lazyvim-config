@@ -39,6 +39,9 @@ return {
         auto_set_keymaps = true,
         auto_apply_diff_after_generation = false,
         support_paste_from_clipboard = false,
+        -- Windows does not support the token counting feature
+        -- require Rust + VS BuildTools
+        enable_token_counting = vim.fn.has("win32") == 0,
       },
       mappings = {
         diff = {
@@ -106,8 +109,7 @@ return {
         override_timeoutlen = 500,
       },
     },
-    build = vim.fn.has("win32") == 1
-      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
       or "make",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
