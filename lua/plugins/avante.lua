@@ -32,7 +32,7 @@ return {
           api_key_name = "OPENROUTER_API_KEY", -- Add your API key here
         },
       },
-      auto_suggestions_provider = "copilot",
+      auto_suggestions_provider = "openai",
       behaviour = {
         auto_suggestions = false, -- Experimental stage
         auto_set_highlight_group = false,
@@ -119,19 +119,6 @@ return {
       "nvim-tree/nvim-web-devicons",
       "ColinKennedy/mega.cmdparse",
       "ColinKennedy/mega.logging",
-
-      -- Copilot configurado correctamente como dependencia directa
-      {
-        "zbirenbaum/copilot.lua",
-        opts = {
-          suggestion = { enabled = false },
-          panel = { enabled = false },
-        },
-        config = function(_, opts)
-          require("copilot").setup(opts)
-        end,
-      },
-
       {
         "HakonHarnes/img-clip.nvim",
         enabled = false,
@@ -154,12 +141,6 @@ return {
       },
     },
     config = function(_, opts)
-      -- Aseguramos explícitamente que Copilot se inicialice antes que Avante en caso de duda
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-
       require("avante").setup(opts)
 
       local function set_avante_colors()
