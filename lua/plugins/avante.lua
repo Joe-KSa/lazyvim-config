@@ -28,7 +28,7 @@ return {
         },
         openai = {
           endpoint = "https://openrouter.ai/api/v1",
-          model = "qwen/qwen3.8-27b:free",
+          model = "cohere/north-mini-code:free",
           api_key_name = "OPENROUTER_API_KEY", -- Add your API key here
         },
       },
